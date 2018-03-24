@@ -1,0 +1,2 @@
+2018-03-23 23:10:33,120 - INFO - Testing the classifier on dataset : /Users/samaraarkotti/Documents/spam3.6/naive/corpus2
+2018-03-23 23:11:13,782 - INFO - Training took 0.0 minutes : 31.812874 seconds
