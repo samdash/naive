@@ -1,0 +1,28 @@
+upstream http_backend {
+  server 127.0.0.1:8000;
+}
+
+
+
+server {
+  listen 8082;
+  server_name 127.0.0.1;
+  access_log            /usr/local/etc/nginx/logs/access.log;
+  error_log            /usr/local/etc/nginx/logs/error.log;
+ 
+  location /api {
+    proxy_pass http://http_backend;
+    proxy_http_version 1.1;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+  }
+  location / {
+    proxy_pass https://http_ui_backend;
+    add_header Cache-Control no-cache;
+    proxy_http_version 1.1;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+  }
+}
