@@ -14,8 +14,7 @@ import logging
 import aiohttp_cors
 from aiohttp import web
 from aiojobs.aiohttp import setup
-from discussion_utils import classify_data
-
+from spam_utils import ham_or_spam
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
@@ -24,7 +23,7 @@ async def handle_post(request):
     data = await request.json()
     logger.debug("processing request {}".format(data))
 
-    input_class = classify_data(data['input_text'])["category"]
+    input_class = ham_or_spam(data['input_text'])["category"]
     json_data = {
         'input_class': input_class,
         'input_text': data['input_text'],
